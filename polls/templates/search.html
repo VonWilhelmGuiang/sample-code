@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/polls/search/" method="post" id="send">
+        {% csrf_token %}
+      <label for="team_name">Search name: </label>
+      <input
+        id="team_name"
+        type="text"
+        name="name_field"
+        placeholder="input first name" />
+      <input type="submit" value="OK" />
+    </form>
+
+    <div id="response">
+        {% if results is not None%}
+            {% for result in results %}
+                {{result.first_name}} {{result.last_name}} <br/>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+{% load url_helper %}
+
+<script>
+    // $(document).ready(function (){
+    //     $(document).on('submit','#send',function (e){
+    //         e.preventDefault();
+    //         const fd = new FormData($(this)[0])
+    //         for(var pair of fd.entries()){
+    //             console.log(pair[0], pair[1]);
+    //         }
+    //         console.log("{% GET_BASE_URL %}")
+    //
+    //         const token = (fd.get('csrfmiddlewaretoken'))
+    //         $.ajax({
+    //             method:"POST",
+    //             url:"{% GET_BASE_URL %}polls/search/",
+    //             headers:{
+    //                 'X-CSRFToken': token
+    //             },
+    //             data: {
+    //                 'name_field': $('#name_field').val()
+    //             },
+    //             success:(resp)=>{
+    //                 $('#response').html(resp)
+    //                 console.log(resp)
+    //             }
+    //         })
+    //     })
+    // })
+</script>
+</html>
